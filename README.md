@@ -8,7 +8,7 @@ Up - прыжок,
 Down - рывок вниз,
 Space - рестарт.
 
-git clone
+git clone https://github.com/BelaverP/ProjectPy1.git
 cd dev
 get checkout dev
 pip install -r
