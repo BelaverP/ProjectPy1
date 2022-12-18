@@ -13,6 +13,7 @@ from cloud import Cloud
 FPS = 200
 
 def run():
+    # Главные переменные
     pygame.init()
     screen = pygame.display.set_mode((1000, 500))
     pygame.display.set_caption("Google Dino")
@@ -40,7 +41,7 @@ def run():
 
         clock.tick(FPS)
 
-
+        # Взамодействие с игрой
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
@@ -71,20 +72,23 @@ def run():
 
 
 
-
+        # Гравитация
         dino.rect.centery -= v
         if air == 1:
             v -= g
 
+
+        # Взаимодействие с полом
         if dino.rect.bottom - v > 400:
             dino.rect.bottom = 400
             v = 0
             air = 0
 
-
+        # Счетчик для анимации бега
         if death == 0:
             tick += 1
 
+        # Анимация бега
         if air == 0:
             if tick == 15:
                 dino.image = pygame.image.load('images/dino2.png')
@@ -93,17 +97,22 @@ def run():
                 dino.image = pygame.image.load('images/dino1.png')
                 dino.mask = pygame.mask.from_surface(dino.image)
 
+        # Зацикливание счетчика
         if tick == 30:
             tick = 0
 
+        # Движение объектов
         cactus.rect.centerx -= speed
         floor.rect.centerx -= speed
         cloud.rect.centerx -= speed * 0.6
 
+        # Обновление кактуса, когда он выходит из зоны видимости
         if cactus.rect.centerx < -200:
             cactus = Сactus(screen)
             cactus.rect.centerx = speed * random.randrange(200, 350)
 
+
+        # Обновление фона
         if floor.rect.centerx < 0:
             floor.rect.centerx += 1000
 
@@ -111,6 +120,7 @@ def run():
             cloud.rect.centerx += 1000
 
 
+        # Счетчик и рекорд
         if g != 0:
             counter.count += 1
             if record.count < counter.count:
@@ -118,6 +128,8 @@ def run():
         counter.text = counter.font.render(str(counter.count // 10), True, (80, 80, 80))
         record.text = counter.font.render("Record: " + str(record.count // 10), True, (80, 80, 80))
 
+
+        # Взаимодейсвие с кактусом
         offset = (cactus.rect.left - dino.rect.left - speed, cactus.rect.top - dino.rect.top)
         if dino.mask.overlap_area(cactus.mask, offset) > 0:
             offset = (cactus.rect.left - dino.rect.left, cactus.rect.top - dino.rect.top)
@@ -138,8 +150,7 @@ def run():
         speed += a
 
 
-
-
+        # Прорисовка объектов
         screen.fill(bg_color)
         floor.ouput()
         cloud.ouput()
