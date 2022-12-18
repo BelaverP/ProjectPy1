@@ -11,5 +11,5 @@ Space - рестарт.
 git clone https://github.com/BelaverP/ProjectPy1.git
 cd dev
 get checkout dev
-pip install -r
+pip install pygame
 python3 __init__.py
